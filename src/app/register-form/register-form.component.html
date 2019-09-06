@@ -1,0 +1,106 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="firstname" class="col-form-label"> First Name : </label>
+    <input
+      id="firstname"
+      type="text"
+      autocomplete="given-name"
+      formControlName="firstname"
+      maxlength="15"
+    />
+    <small *ngIf="firstname.invalid" class="form-text text-muted"
+      >We'll never share your email with anyone else.</small
+    >
+  </div>
+  <div class="form-group">
+    <label for="lastname" class="col-form-label"> Last Name : </label>
+    <input
+      id="lastname"
+      type="text"
+      autocomplete="family-name"
+      formControlName="lastname"
+      maxlength="15"
+    />
+  </div>
+  <div class="form-group">
+    <label class="col-form-label"> Email : </label>
+    <input
+      id="email"
+      type="email"
+      autocomplete="email"
+      formControlName="email"
+    />
+    <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+      <small *ngIf="email.errors['email']" class="form-text text-muted"
+        >Email Format invalid</small
+      >
+      <small *ngIf="email.errors['required']" class="form-text text-muted"
+        >Please enter a email</small
+      >
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <label for="password">
+      Password:
+    </label>
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      formControlName="password"
+    />
+    <ng-container
+      *ngIf="password.invalid && (password.dirty || password.touched)"
+    >
+      <small *ngIf="password.errors['pattern']" class="form-text text-muted"
+        >Minimum eight characters, at least one letter, one number and one
+        special character.</small
+      >
+      <small *ngIf="password.errors['required']" class="form-text text-muted"
+        >Please enter a password</small
+      >
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <label for="retypePassword">
+      Confirm Password:
+    </label>
+    <input
+      id="retypePassword"
+      type="password"
+      autocomplete="current-password"
+      formControlName="retypePassword"
+    />
+    <ng-container
+      *ngIf="
+        retypePassword.invalid &&
+        (retypePassword.dirty || retypePassword.touched)
+      "
+    >
+      <small
+        *ngIf="
+          profileForm.errors['notSame'] && !retypePassword.errors['required']
+        "
+        class="form-text text-muted"
+        >Must be same as above password.</small
+      >
+      <small
+        *ngIf="retypePassword.errors['required']"
+        class="form-text text-muted"
+        >Please enter confirm Password</small
+      >
+    </ng-container>
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="checkbox" />
+    <label class="form-check-label" for="checkbox">Remeber me</label>
+  </div>
+  <button
+    type="submit"
+    tabindex="0"
+    class="btn btn-primary"
+    [disabled]="!profileForm.valid"
+  >
+    Submit
+  </button>
+</form>
